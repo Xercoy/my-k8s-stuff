@@ -36,7 +36,7 @@ generate_csrs() {
 EOM
 
   echo "${CSR}"
-  echo "${CSR}" >> "${CSR_FILE_NAME}-csr.json"
+  echo "${CSR}" > "${CSR_FILE_NAME}-csr.json"
 }
 
 
