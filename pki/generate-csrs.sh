@@ -88,7 +88,7 @@ fi
 if [[ "${DESIRED_CERT_TYPE}" == "kube-api-server" || "${DESIRED_CERT_TYPE}" == "all" ]]; then
     CSR_COMMON_NAME="kubernetes"
     CSR_ORGANIZATION_NAME="Kubernetes"
-    generate_csrs kube-api-server
+    generate_csrs  kubernetes #kube-api-server
 fi
 
 # service account
