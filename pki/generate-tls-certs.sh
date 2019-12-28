@@ -12,6 +12,7 @@ set -x
 
 # Works on Ubuntu on Digital Ocean
 PUBLIC_IP_ADDR="$(hostname -I | awk -F ' ' '{print $1}')"
+INTERNAL_IP_ADDR="$(hostname -I | awk -F ' ' '{print $2}')"
 
 CSR_DEFAULT_COMPONENTS=("admin" "kublet" "kube-controller-manager" "kube-proxy" "kube-scheduler" "kubernetes" "service-account")
 CA_CONFIG_PROFILE="kubernetes"
@@ -98,9 +99,11 @@ gencert
 # kube-api-server
 # "CN": "kubernetes"
 # "O": "Kubernetes"
-# need to get IP address
+# these are possible sources from which requests for the
+# apiserver can come from
+# note the address for localhost and the other well known IPs that it can come from. TODO: clean this up
 COMPONENT_CUSTOM_COMMAND="-hostname=${HOSTNAME},${PUBLIC_IP_ADDR},10.32.0.1,10.240.0.10,10.240.0.11,10.240.0.12,127.0.0.1,${KUBERNETES_HOSTNAMES}"
-CSR_COMPONENT= "kubernetes" # it's not "kube-api-server" - api-server and etcd will use this
+CSR_COMPONENT="kubernetes" # it's not "kube-api-server" - api-server and etcd will use this
 gencert
 
 # service account
