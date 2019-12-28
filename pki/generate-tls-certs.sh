@@ -49,12 +49,13 @@ EOM
 
 echo "${CA_CONFIG_FILE}" > "${CA_CONFIG_FILEPATH}"
 
+# this is getting really ugly, but we're going for speed now.
 function gencert() {
     cfssl gencert \
     -ca="${CA_CERT}" \
     -ca-key="${CA_KEY}" \
     -config="${CA_CONFIG_FILEPATH}" \
-    -profile="${CA_CONFIG_PROFILE} ${COMPONENT_CUSTOM_COMMAND}" \
+    -profile="${CA_CONFIG_PROFILE}" -hostname="${COMPONENT_CUSTOM_COMMAND}" \
     "${CSR_COMPONENT}-csr.json" | cfssljson -bare "${CSR_COMPONENT}"
 }
 
@@ -70,7 +71,7 @@ gencert
 # in which requests for the kubelet might come from.
 # "CN": "system:node:${HOSTNAME}"
 # "O": "system:nodes"
-COMPONENT_CUSTOM_COMMAND="-hostname=${HOSTNAME},${PUBLIC_IP_ADDR}"
+COMPONENT_CUSTOM_COMMAND="${HOSTNAME},${PUBLIC_IP_ADDR}"
 CSR_COMPONENT="kubelet"
 gencert
 
@@ -102,7 +103,7 @@ gencert
 # these are possible sources from which requests for the
 # apiserver can come from
 # note the address for localhost and the other well known IPs that it can come from. TODO: clean this up
-COMPONENT_CUSTOM_COMMAND="-hostname=${HOSTNAME},${PUBLIC_IP_ADDR},10.32.0.1,10.240.0.10,10.240.0.11,10.240.0.12,127.0.0.1,${KUBERNETES_HOSTNAMES}"
+COMPONENT_CUSTOM_COMMAND="${HOSTNAME},${PUBLIC_IP_ADDR},10.32.0.1,10.240.0.10,10.240.0.11,10.240.0.12,127.0.0.1,${KUBERNETES_HOSTNAMES}"
 CSR_COMPONENT="kubernetes" # it's not "kube-api-server" - api-server and etcd will use this
 gencert
 
