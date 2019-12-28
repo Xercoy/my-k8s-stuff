@@ -18,4 +18,8 @@ Etcd utilizes the same certs that the kube-api-server uses. Standing it up is a 
 
 Constantly making changes to the scripts to ensure that a new master node can be bootstrapped from the cluster scripts as expected.
 
+Today's gotchas:
 
+- need to ensure the name of the etcd instance is included in the cluster in the --intial-cluster option
+
+- TLS generation not include the hostname option. ETCD was screaming at me that the cert had no IP SANs - had to go through things step by step and make sure.
