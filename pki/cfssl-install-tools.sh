@@ -1,4 +1,4 @@
-#!bin/bash
+#!/bin/bash
 # install tools required to generate and setup PKI Infrastructure
 
 curl -L https://pkg.cfssl.org/R1.2/cfssl_linux-amd64 -o cfssl
