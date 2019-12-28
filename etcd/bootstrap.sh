@@ -29,7 +29,7 @@ INTERNAL_IP="$(hostname -I | awk -F ' ' '{print $2}')"
 ETCD_NAME=$(hostname -s)
 
 # create etcd.service systemd unit file
-# take not of listen-client-urls, it dictates where the request can come from
+# take note of listen-client-urls, it dictates where the request can come from
 # this is why the validate step is set at an endpoint for localhost
 cat <<EOF | sudo tee /etc/systemd/system/etcd.service
 [Unit]
@@ -54,7 +54,7 @@ ExecStart=/usr/local/bin/etcd \\
   --listen-client-urls https://127.0.0.1:2379 \\
   --advertise-client-urls https://${INTERNAL_IP}:2379 \\
   --initial-cluster-token etcd-cluster-0 \\
-  --initial-cluster controller-0=https://${INTERNAL_IP}:2380 \\
+  --initial-cluster ${ETCD_NAME}=https://${INTERNAL_IP}:2380 \\
   --initial-cluster-state new \\
   --data-dir=/var/lib/etcd
 Restart=on-failure
