@@ -1,4 +1,4 @@
-
+# My Kuberentes Stuff
 
 Resources for my learning and knowledge in Kubernetes as I prepare to take the Certified Kubernetes Administrator exam. Also going through Kubernetes the Hard Way so most of the content and scripts are based from that.
 
