@@ -5,6 +5,7 @@ set -x
 CREDENTIAL_NAME="system:kube-proxy"
 KUBECONFIG_FILE_NAME="kube-proxy.kubeconfig"
 CONTEXT_NAME="default"
+COMPONENT_NAME="kube-proxy"
 
 # DEFAULTS THAT SHOULD BE CHANGED TO BE MORE FLEXIBLE
 CLUSTER_NAME="prak-default-cluster"
@@ -27,8 +28,8 @@ kubectl config set-cluster "${CLUSTER_NAME}" \
 # this requires the client's cert which includes the public key within it,
 # as well as the private key
 kubectl config set-credentials "${CREDENTIAL_NAME}" \
---client-certificate="${CA_CERT_PATH}" \
---client-key="${CA_CERT_KEY}" \
+--client-certificate="${COMPONENT_NAME}.pem" \
+--client-key="${COMPONENT_NAME}-key.pem" \
 --embed-certs=true \
 --kubeconfig="${KUBECONFIG_FILE_NAME}"
 
