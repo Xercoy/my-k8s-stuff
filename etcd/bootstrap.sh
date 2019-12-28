@@ -1,5 +1,6 @@
 #!/bin/bash
 # starts a single node etcd cluster locally
+set -x
 
 # cleanup
 sudo systemctl stop etcd
@@ -28,6 +29,8 @@ INTERNAL_IP="$(hostname -I | awk -F ' ' '{print $2}')"
 ETCD_NAME=$(hostname -s)
 
 # create etcd.service systemd unit file
+# take not of listen-client-urls, it dictates where the request can come from
+# this is why the validate step is set at an endpoint for localhost
 cat <<EOF | sudo tee /etc/systemd/system/etcd.service
 [Unit]
 Description=etcd
@@ -36,6 +39,7 @@ Documentation=https://github.com/coreos
 [Service]
 Type=notify
 ExecStart=/usr/local/bin/etcd \\
+  --log-level=debug \\
   --name ${ETCD_NAME} \\
   --cert-file=/etc/etcd/kubernetes.pem \\
   --key-file=/etc/etcd/kubernetes-key.pem \\
