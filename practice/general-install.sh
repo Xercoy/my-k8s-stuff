@@ -1,6 +1,6 @@
 #!/bin/bash
 # this sets up a master node for each 
-
+{
 # clone repo and change dirs to it
 git clone https://github.com/xercoy/my-k8s-stuff
 cd my-k8s-stuff/
@@ -14,3 +14,7 @@ cd my-k8s-stuff/
 
 # start cluster with kubeadm init, install calico, setup kubeconfig, etc
 kubeadm/kubeadm-init.sh
+
+# install etcd, etcdctl
+./etcd/install-etcd-stuff.sh
+}
