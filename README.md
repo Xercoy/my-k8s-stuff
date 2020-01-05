@@ -23,3 +23,11 @@ Today's gotchas:
 - need to ensure the name of the etcd instance is included in the cluster in the --intial-cluster option
 
 - TLS generation not include the hostname option. ETCD was screaming at me that the cert had no IP SANs - had to go through things step by step and make sure.
+
+## 12/03/2020
+
+Focusing on CKA exam. Haven't been able to get it up and running smoothly so the plan is to follow KTHW to a T and then play around or try to automate it. I am mostly curious to see the startup logs of each component.
+
+## 12/04/2020
+
+Found out how to backup and restore etcd cluster. Need to take more notes and write automation around it... So many gotchas. Also refreshed myself on services.

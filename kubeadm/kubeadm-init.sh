@@ -26,3 +26,8 @@ fi
 
 # remove taint from master nodes
 kubectl taint nodes --all node-role.kubernetes.io/master-
+
+# bash completion
+echo 'source <(kubectl completion bash)' >> ~/.bashrc 
+echo 'source <(etcdctl completion bash)' >> ~/.bashrc
+echo 'source <(kubeadm completion bash)' >> ~/.bashrc
