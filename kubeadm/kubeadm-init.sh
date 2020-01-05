@@ -10,7 +10,8 @@ if [[ "${MODE}" == "restore" ]]; then
 fi
 
 # run kubeadm init with the right arguments
-kubeadm init --pod-network-cidr=192.168.0.0/16 "${KUBEADM_OPT}"
+# https://unix.stackexchange.com/questions/415990/how-can-i-expand-a-quoted-variable-to-nothing-if-its-empty
+kubeadm init --pod-network-cidr=192.168.0.0/16 ${KUBEADM_OPT:+"${KUBEADM_OPT}"}
 
 # setup kubeconfig
 mkdir -p $HOME/.kube
