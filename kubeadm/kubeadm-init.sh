@@ -23,3 +23,6 @@ if [[ "${MODE}" != "restore" ]]; then
     # apply calico CRDs
     kubectl apply -f https://docs.projectcalico.org/v3.8/manifests/calico.yaml
 fi
+
+# remove taint from master nodes
+kubectl taint nodes --all node-role.kubernetes.io/master-
