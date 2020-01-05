@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # installs kubelet, kubeadm, and kubectl
 # https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/
 
